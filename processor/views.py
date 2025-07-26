@@ -9,7 +9,7 @@ def upload_pdf(request):
         pdf = request.FILES['pdf']
         obj = PDFUpload.objects.create(file=pdf)
 
-        # Step 1: Extract full text from PDF
+        # Step 1: Extract full text
         full_text = extract_text_from_pdf(obj.file.path)
         print("✅ PDF Extracted Pages:", len(full_text))
 
@@ -18,20 +18,18 @@ def upload_pdf(request):
         else:
             print("⚠️ Not enough pages to show sample.")
 
-        # Step 2: Extract chapter headings
+        # Step 2: Extract chapter headings using rule-based logic
         headings = extract_chapter_headings(full_text)
         print("🧠 Total Headings Detected:", len(headings))
 
-        # Step 3: Summarize first 3 chapters only (for speed)
+        # Step 3: Summarize chapters
         chapters = []
-        for i, (title, idx) in enumerate(headings[:3]):
-            print(f"\n📚 Chapter {i+1}: {title}")
+        for title, idx in headings:
+            print(f"\n📚 Chapter: {title}")
             raw_text = full_text[idx]
-
             print("⏳ Summarizing...")
             summary = summarize_text(raw_text)
             print(f"✅ Done summarizing: {title}")
-
             chapters.append({
                 'title': title,
                 'page': idx + 1,

@@ -11,3 +11,6 @@ def extract_chapter_headings(pages):
             headings.append((heading, idx))
     
     return headings
+
+
+

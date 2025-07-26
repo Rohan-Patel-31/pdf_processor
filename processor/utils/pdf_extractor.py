@@ -7,3 +7,6 @@ def extract_text_from_pdf(file_path):
     for page in doc:
         text.append(page.get_text())
     return text
+
+
+
