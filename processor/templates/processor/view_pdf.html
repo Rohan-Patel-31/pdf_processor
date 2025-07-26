@@ -1,0 +1,17 @@
+<div style="display: flex;">
+  <div style="width: 25%; border-right: 1px solid #ccc;">
+    <h3>Chapters</h3>
+    <ul>
+      {% for ch in chapters %}
+        <li><a href="#chapter{{ forloop.counter }}">{{ ch.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div style="width: 75%; padding-left: 20px;">
+    {% for ch in chapters %}
+      <h2 id="chapter{{ forloop.counter }}">{{ ch.title }}</h2>
+      <p><strong>Summary:</strong> {{ ch.summary }}</p>
+      <hr>
+    {% endfor %}
+  </div>
+</div>
